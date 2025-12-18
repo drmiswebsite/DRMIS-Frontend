@@ -97,27 +97,36 @@ function MemberCurrentCard(props) {
         <div className="member-current-card__profile-link-container">
           <label>Profile Link</label>
           {profile_link_id_arr &&
-            profile_link_id_arr.map((profileLinkId, i) => {
-              const { title, link } = memberProfileLinkArr.find((memberProfileLink) => memberProfileLink.id === profileLinkId);
-              return (
-                <div key={i} className="profile-link">
-                  <input
-                    id={`member#${id}#profile_link_id_arr#${profileLinkId}#title`}
-                    type="text"
-                    defaultValue={title}
-                    className="title"
-                    placeholder="Title"
-                  ></input>
-                  <input
-                    id={`member#${id}#profile_link_id_arr#${profileLinkId}#link`}
-                    type="text"
-                    defaultValue={link}
-                    className="link"
-                    placeholder="Link"
-                  ></input>
-                </div>
-              );
-            })}
+            profile_link_id_arr &&
+              profile_link_id_arr.map((profileLinkId, i) => {
+                const profileLink = memberProfileLinkArr?.find(
+                  (memberProfileLink) => memberProfileLink.id === profileLinkId
+                );
+            
+                if (!profileLink) return null;
+            
+                const { title, link } = profileLink;
+            
+                return (
+                  <div key={i} className="profile-link">
+                    <input
+                      id={`member#${id}#profile_link_id_arr#${profileLinkId}#title`}
+                      type="text"
+                      defaultValue={title}
+                      className="title"
+                      placeholder="Title"
+                    />
+                    <input
+                      id={`member#${id}#profile_link_id_arr#${profileLinkId}#link`}
+                      type="text"
+                      defaultValue={link}
+                      className="link"
+                      placeholder="Link"
+                    />
+                  </div>
+                );
+              })
+
           <button onClick={addMoreProfileLinkHandler} type="button">
             Add More
           </button>
